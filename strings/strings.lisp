@@ -4,7 +4,8 @@
   (:export
    :fields
    :join
-   :contains))
+   :contains
+   :parse-float))
 
 (in-package :com.bwestbro.strings)
 
@@ -50,3 +51,7 @@
 	      (when (string= (subseq str start end) sub)
 		(return-from contains t))))
   nil)
+
+(defun parse-float (num)
+  (let ((*read-default-float-format* 'double-float))
+    (read-from-string num)))

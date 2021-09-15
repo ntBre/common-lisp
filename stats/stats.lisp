@@ -15,3 +15,12 @@
   (let ((la (length a)))
     (assert (= la (length b)))
     (/ (apply #'+ (mapcar #'abs-diff a b)) (float la))))
+
+(defun transpose (mat)
+  "Transpose a matrix"
+  (destructuring-bind (rows cols) (array-dimensions mat)
+    (let ((ret (make-array (list cols rows))))
+      (dotimes (r rows)
+	(dotimes (c cols)
+	  (setf (aref ret c r) (aref mat r c))))
+      ret)))

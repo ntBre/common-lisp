@@ -2,7 +2,8 @@
   (:use :cl)
   (:export
    :abs-diff
-   :mae))
+   :mae
+   :avg))
 
 (in-package :com.bwestbro.stats)
 
@@ -15,6 +16,12 @@
   (let ((la (length a)))
     (assert (= la (length b)))
     (/ (apply #'+ (mapcar #'abs-diff a b)) (float la))))
+
+(defun avg (a b)
+  "Return the average error between vectors A and B"
+  (let ((la (length a)))
+    (assert (= la (length b)))
+    (/ (apply #'+ (mapcar #'- a b)) (float la))))
 
 (defun transpose (mat)
   "Transpose a matrix"

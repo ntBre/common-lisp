@@ -17,6 +17,16 @@
     (assert (= la (length b)))
     (/ (apply #'+ (mapcar #'abs-diff a b)) (float la))))
 
+(defun non-nil-mae (a b)
+  "Return the mean absolute error between vectors of A and B, skipping
+entries where either list is nil"
+  (let* ((pairs (remove-if #'(lambda (x) (or (null (car x))
+					     (null (cdr x))))
+			       (pairlis a b)))
+	 (newa (mapcar #'car pairs))
+	 (newb (mapcar #'cdr pairs)))
+    (mae newa newb)))
+
 (defun avg (a b)
   "Return the average error between vectors A and B"
   (let ((la (length a)))
